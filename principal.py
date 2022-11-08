@@ -19,6 +19,10 @@ def main():
         pygame.display.set_caption("La escondida...")
         screen = pygame.display.set_mode((ANCHO, ALTO))
 
+        #Fuentes
+        defaultFont= pygame.font.Font( pygame.font.get_default_font(), TAMANNO_LETRA)
+        defaultFontGrande= pygame.font.Font( pygame.font.get_default_font(), TAMANNO_LETRA_GRANDE)
+
         #tiempo total del juego
         gameClock = pygame.time.Clock()
         totaltime = 0
@@ -70,9 +74,8 @@ def main():
                     if e.key == K_RETURN:
                             #falta hacer un control para que sea una palabra de la longitud deseada
                             #falta controlar que la palabra este en el diccionario
-                            #palabraUsuario = validacion(palabraUsuario, LARGO, listaPalabrasDiccionario)
-                            gano = revision(palabraCorrecta, palabraUsuario, correctas, incorrectas, casi)
                             ListaDePalabrasUsuario.append(palabraUsuario)
+                            gano = revision(palabraCorrecta, palabraUsuario, correctas, incorrectas, casi)
                             palabraUsuario = ""
                             intentos -= 1
 
@@ -81,11 +84,20 @@ def main():
             #Limpiar pantalla anterior
             screen.fill(COLOR_FONDO)
 
+
             #Dibujar de nuevo todo
             dibujar(screen, ListaDePalabrasUsuario, palabraUsuario, puntos,segundos, gano, correctas, incorrectas, casi)
 
             pygame.display.flip()
-
+        
+        screen.fill(COLOR_FONDO)
+        
+        if gano:
+            dibujar(screen, ListaDePalabrasUsuario, palabraUsuario, puntos,segundos, gano, correctas, incorrectas, casi)
+        
+        else:
+            screen.blit(defaultFontGrande.render("Perdiste", 1, (232, 17, 35)), (250, 250))
+            screen.blit(defaultFont.render("La palabra correcta era: " + palabraCorrecta[-1], 1, (232, 17, 35)), (250, 400))
         while 1:
             #Esperar el QUIT del usuario
             for e in pygame.event.get():

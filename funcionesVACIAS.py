@@ -24,10 +24,8 @@ def revision(palabraCorrecta, palabra, correctas, incorrectas, casi):
                 casi.append(letra)
             else:
                 incorrectas.append(letra)
-
-    elif palabra == palabraCorrecta:
-        return True
-    return False
+        return False
+    return True
 
 def color_letras(letra, correctas, casi, incorrectas):
     if letra in correctas:
@@ -40,7 +38,8 @@ def color_letras(letra, correctas, casi, incorrectas):
         color = (255, 255, 255)
     return color
 
-#def validacion(palabra, largo, lemario):
-#    while palabra not in lemario or len(palabra) != largo:
-#        pass
-#    return palabra
+
+def validacion(palabra, lista):
+    if palabra not in lista:
+        return False
+    return True

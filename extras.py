@@ -71,11 +71,17 @@ def dibujar(screen, listaDePalabrasUsuario, palabraUsuario, puntos, segundos, ga
     defaultFont= pygame.font.Font( pygame.font.get_default_font(), TAMANNO_LETRA)
     defaultFontGrande= pygame.font.Font( pygame.font.get_default_font(), TAMANNO_LETRA_GRANDE)
 
+    if gano:
+        screen.blit(defaultFontGrande.render("Ganaste", 1, COLOR_LETRAS), (250, 250))
+        screen.blit(defaultFont.render("La palabra correcta era: " + listaDePalabrasUsuario[-1], 1, COLOR_LETRAS), (250, 400))
+        return True
+
     #Linea Horizontal
     pygame.draw.line(screen, (255,255,255), (0, ALTO-70) , (ANCHO, ALTO-70), 5)
 
     #muestra lo que escribe el jugador
     screen.blit(defaultFont.render(palabraUsuario, 1, COLOR_TEXTO), (190, 570))
+
     #muestra el puntaje
     screen.blit(defaultFont.render("Puntos: " + str(puntos), 1, COLOR_TEXTO), (680, 10))
     #muestra los segundos y puede cambiar de color con el tiempo
